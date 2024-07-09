@@ -5,9 +5,9 @@ import {schemaTypes} from './schemaTypes'
 
 export default defineConfig({
   name: 'default',
-  title: 'Edukasi Post',
+  title: 'sanity-cms',
 
-  projectId: '2baj5orm',
+  projectId: 'rakkh5xd',
   dataset: 'production',
 
   plugins: [structureTool(), visionTool()],

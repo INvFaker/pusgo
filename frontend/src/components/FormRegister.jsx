@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import UserInput from "../hooks/UserInput";
 import axios from "axios";
 import { useState } from "react";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import BASE_URL from "../utils/api";
 
 function FormRegister() {
   const [name, onNameChange] = UserInput("");
@@ -16,7 +17,7 @@ function FormRegister() {
   const Register = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/users", {
+      await axios.post(`${BASE_URL}/users`, {
         name: name,
         email: email,
         password: password,
@@ -24,10 +25,10 @@ function FormRegister() {
       });
       // Use SweetAlert for success message
       Swal.fire({
-        icon: 'success',
-        title: 'Registration successful!',
+        icon: "success",
+        title: "Registration successful!",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       });
       navigate("/login");
     } catch (error) {
@@ -35,8 +36,8 @@ function FormRegister() {
         setMsg(error.response.data.msg);
         // Use SweetAlert for error message
         Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
+          icon: "error",
+          title: "Oops...",
           text: error.response.data.msg,
         });
       }

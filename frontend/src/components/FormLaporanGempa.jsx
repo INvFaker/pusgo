@@ -5,7 +5,8 @@ import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+import BASE_URL from "../utils/api";
 
 // Fix for default icon issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -63,7 +64,7 @@ function FormLaporanUser() {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/token", {
+      const response = await axios.get(`${BASE_URL}/token`, {
         withCredentials: true,
       });
       setToken(response.data.accessToken);
@@ -71,7 +72,6 @@ function FormLaporanUser() {
       console.log(error);
     }
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -84,23 +84,19 @@ function FormLaporanUser() {
     };
     console.log("data ", entry);
     try {
-      const response = await axios.post(
-        "http://localhost:4000/reports",
-        entry,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/reports`, entry, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
       console.log("Data berhasil ditambahkan:", response.data);
       // Menampilkan SweetAlert sukses
       Swal.fire({
-        title: 'Sukses!',
-        text: 'Laporan kamu sudah berhasil dikirim. Terima kasih atas informasinya, pahlawan!',
-        icon: 'success',
-        confirmButtonText: 'OK'
+        title: "Sukses!",
+        text: "Laporan kamu sudah berhasil dikirim. Terima kasih atas informasinya, pahlawan!",
+        icon: "success",
+        confirmButtonText: "OK",
       });
       // Mengatur ulang state
       setCoordinates({ lat: "", lng: "" });

@@ -3,6 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import PageHeader from "../components/PageHeader";
 import EarthquakeItem from "../components/EarthquakeItem";
+import BASE_URL from "../utils/api";
 
 function InformationPage() {
   const [localData, setLocalData] = useState(null); // For local earthquake reports
@@ -10,7 +11,7 @@ function InformationPage() {
 
   // Fetch local earthquake data
   useEffect(() => {
-    fetch("http://localhost:4000/reports")
+    fetch(`${BASE_URL}/reports`)
       .then((response) => response.json())
       .then((data) => {
         setLocalData(data);
