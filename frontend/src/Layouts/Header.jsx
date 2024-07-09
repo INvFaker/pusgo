@@ -6,8 +6,9 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import { WiEarthquake } from "react-icons/wi";
 import { Link, Navigate } from "react-router-dom";
-import Swal from 'sweetalert2'; // Langkah 1: Impor Swal
-import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2"; // Langkah 1: Impor Swal
+import { useNavigate } from "react-router-dom";
+import BASE_URL from "../utils/api";
 
 function Header() {
   const [name, setName] = useState("");
@@ -20,7 +21,7 @@ function Header() {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/token", {
+      const response = await axios.get(`${BASE_URL}/token`, {
         withCredentials: true,
       });
       setToken(response.data.accessToken);
@@ -34,7 +35,7 @@ function Header() {
 
   const logout = async () => {
     try {
-      await axios.delete("http://localhost:4000/logout", {
+      await axios.delete(`${BASE_URL}/logout`, {
         withCredentials: true,
       });
       setToken("");
@@ -42,10 +43,10 @@ function Header() {
       setEmail("");
       // Langkah 2: Tampilkan Sweet Alert
       Swal.fire({
-        icon: 'success',
-        title: 'Logout Berhasil',
+        icon: "success",
+        title: "Logout Berhasil",
         showConfirmButton: false,
-        timer: 1500
+        timer: 1500,
       }).then(() => {
         // Langkah 3: Navigasi setelah Sweet Alert
         navigate("/");
@@ -76,7 +77,9 @@ function Header() {
             >
               <Dropdown.Header>
                 <span className="block text-sm">{name}</span>
-                <span className="block truncate text-sm font-medium">{email}</span>
+                <span className="block truncate text-sm font-medium">
+                  {email}
+                </span>
               </Dropdown.Header>
               <Dropdown.Divider />
               <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
