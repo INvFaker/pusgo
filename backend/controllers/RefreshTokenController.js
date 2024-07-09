@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export const refreshToken = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
+    console.log("Refresh Token:", refreshToken);
     if (!refreshToken) return res.sendStatus(401);
 
     // Find user by refresh token
