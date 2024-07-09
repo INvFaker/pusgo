@@ -118,6 +118,8 @@ export const Login = async (req, res) => {
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
+      secure: true,
+      sameSite: "None",
       maxAge: 1000 * 60 * 60 * 24, // Cookie maxAge set to 1 day in milliseconds
     });
 
